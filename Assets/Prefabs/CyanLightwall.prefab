@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2532785750051432305}
   - component: {fileID: 8210342895037571386}
   m_Layer: 0
-  m_Name: CyanLightwall 1
-  m_TagString: Untagged
+  m_Name: CyanLightwall
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

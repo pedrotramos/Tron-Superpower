@@ -15,6 +15,7 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Randomly decide starting direction
         float movementDirection = Random.Range(0, 4);
         if (movementDirection == 0)
         {
@@ -32,11 +33,13 @@ public class Movement : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
         }
+        SpawnWall();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Change movement direction
         float inputX = 0;
         float inputY = 0;
 
@@ -49,12 +52,14 @@ public class Movement : MonoBehaviour
         if (inputX != 0)
         {
             GetComponent<Rigidbody2D>().velocity = inputX * Vector2.right * movementSpeed;
+            SpawnWall();
         }
         else if (inputY != 0)
         {
             GetComponent<Rigidbody2D>().velocity = inputY * Vector2.up * movementSpeed;
+            SpawnWall();
         }
-        SpawnWall();
+        // Resize the collider between the current wall and last wall's end point
         FitWallCollider(currentWall, lastWallEndPoint, transform.position);
     }
 
@@ -69,32 +74,38 @@ public class Movement : MonoBehaviour
         currentWall = newWall.GetComponent<Collider2D>();
     }
 
+    // Fit a collider between the current wall and last wall's end point
     void FitWallCollider(Collider2D collider, Vector2 vec1, Vector2 vec2)
     {
         // Calculate the midpoint
-        collider.transform.position = vec1 + (vec2 - vec1) * 0.5f;
+        Vector2 midpoint = vec1 + ((vec2 - vec1) / 2f);
+        collider.transform.position = midpoint;
 
         // Calculate distance between the two points
         float dist = Vector2.Distance(vec1, vec2);
 
+        print(midpoint + " | " + dist);
+
+
         if (vec1.x != vec2.x)
         {
-            // To scale horizontally
-            collider.transform.localScale = new Vector2(dist + 1, 1);
+            // Scale horizontally
+            collider.transform.localScale = new Vector2((dist / 2) + 1, 1);
         }
         else
         {
-            // To scale vertically
-            collider.transform.localScale = new Vector2(1, dist + 1);
+            // Scale vertically
+            collider.transform.localScale = new Vector2(1, (dist / 2) + 1);
         }
     }
 
-    // void OnTriggerEnter2D(Collider2D collider)
-    // {
-    //     // Check if the collision was not between the player and the current wall
-    //     if (collider != currentWall)
-    //     {
-    //         Destroy(gameObject);
-    //     }
-    // }
+    //Define what happens in case of a collision
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        // Check if the collision was not between the player and the current wall
+        if (collider != currentWall && (collider.gameObject.tag == "Wall" || collider.gameObject.tag == "Player"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }
