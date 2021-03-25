@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class AI_Movement : MonoBehaviour
 {
     public float movementSpeed = 25f;
     public GameObject lightWallPrefab;
     Collider2D currentWall;
     Vector2 lastWallEndPoint;
-    public KeyCode upKey, downKey, rightKey, leftKey;
-    List<GameObject> instantiatedWalls = new List<GameObject>();
 
 
     // Start is called before the first frame update
@@ -37,28 +35,10 @@ public class Movement : MonoBehaviour
     }
 
     // Update is called once per frame
+    // Update is called once per frame
     void Update()
     {
-        // Change movement direction
-        float inputX = 0;
-        float inputY = 0;
-
-        if (Input.GetKeyDown(rightKey)) inputX = 1;
-        else if (Input.GetKeyDown(leftKey)) inputX = -1;
-
-        if (Input.GetKeyDown(upKey)) inputY = 1;
-        else if (Input.GetKeyDown(downKey)) inputY = -1;
-
-        if (inputX != 0 && GetComponent<Rigidbody2D>().velocity.x == 0)
-        {
-            GetComponent<Rigidbody2D>().velocity = inputX * Vector2.right * movementSpeed;
-            SpawnWall();
-        }
-        else if (inputY != 0 && GetComponent<Rigidbody2D>().velocity.y == 0)
-        {
-            GetComponent<Rigidbody2D>().velocity = inputY * Vector2.up * movementSpeed;
-            SpawnWall();
-        }
+        // TODO: Implementar a Inteligência Artificial
         // Resize the collider between the current wall and last wall's end point
         FitWallCollider(currentWall, lastWallEndPoint, transform.position);
     }
@@ -71,7 +51,6 @@ public class Movement : MonoBehaviour
 
         // Instantiate the new wall
         GameObject newWall = Instantiate(lightWallPrefab, transform.position, Quaternion.identity);
-        instantiatedWalls.Add(newWall);
         currentWall = newWall.GetComponent<Collider2D>();
     }
 
@@ -84,6 +63,9 @@ public class Movement : MonoBehaviour
 
         // Calculate distance between the two points
         float dist = Vector2.Distance(vec1, vec2);
+
+        print(midpoint + " | " + dist);
+
 
         if (vec1.x != vec2.x)
         {
@@ -101,12 +83,8 @@ public class Movement : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         // Check if the collision was not between the player and the current wall
-        if (collider != currentWall)
+        if (collider != currentWall && (collider.gameObject.tag == "Wall" || collider.gameObject.tag == "Player"))
         {
-            foreach (GameObject w in instantiatedWalls)
-            {
-                Destroy(w);
-            }
             Destroy(gameObject);
         }
     }
