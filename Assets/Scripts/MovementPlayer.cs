@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class MovementPlayer : MonoBehaviour
 {
     GameManager gm;
-    public float movementSpeed = 25f;
+    float movementSpeed;
     public GameObject lightWallPrefab;
     Collider2D currentWall;
     Vector2 lastWallEndPoint;
@@ -19,6 +19,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         gm = GameManager.GetInstance();
+        movementSpeed = gm.speed;
         timer = 0;
         timeToScore = 1f;
         // Randomly decide starting direction

@@ -6,10 +6,12 @@ public class GameManager
 {
     private static GameManager _instance;
 
-    public enum GameState { MENU, SURVIVAL, SINGLE, LOCAL, ONLINE, END_SURVIVAL, END_SINGLE };
+    public enum GameState { MENU, SURVIVAL, DIFFICULTY_SINGLE, SINGLE, LOCAL, ONLINE, END_SURVIVAL, END_SINGLE };
 
     public GameState gameState { get; private set; }
     public int score;
+    public float speed;
+    public int difficulty;
     public int destroyedNPCs;
     public bool singleWin;
     public delegate void ChangeStateDelegate();

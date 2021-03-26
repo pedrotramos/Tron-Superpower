@@ -2,22 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AI_Movement : MonoBehaviour
+public class MovementAI : MonoBehaviour
 {
     public GameManager gm;
-    public float movementSpeed = 25f;
+    float movementSpeed;
     public GameObject lightWallPrefab;
     Collider2D currentWall;
     Vector2 lastWallEndPoint;
     List<GameObject> instantiatedWalls = new List<GameObject>();
-    int lastMove;
-
+    float timer;
+    float timeToChangeDirection;
 
 
     // Start is called before the first frame update
     void Start()
     {
         gm = GameManager.GetInstance();
+        movementSpeed = gm.speed;
+        timer = 0;
+        // timeToChangeDirection = 1f;
         // Randomly decide starting direction
         float movementDirection = Random.Range(0, 4);
         if (movementDirection == 0)
@@ -40,7 +43,6 @@ public class AI_Movement : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
-        lastMove = Random.Range(0, 2); // Left = 0 | Right = 1
         SpawnWall();
     }
 
@@ -55,65 +57,60 @@ public class AI_Movement : MonoBehaviour
             }
             Destroy(gameObject);
         }
+        timer += Time.deltaTime;
         RaycastHit2D hitUp = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 3f);
-        if (hitUp && GetComponent<Rigidbody2D>().velocity.x != 0)
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), 3f);
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 3f);
+        if (hitUp) AvoidCollision(hitRight, hitLeft);
+        else
         {
-            if (lastMove == 1 && GetComponent<Rigidbody2D>().velocity.x > 0)
+            if (gm.difficulty == 2) // Normal difficulty
             {
-                lastMove = 1;
-                GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
-                transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+                // Increase difficulty
             }
-            else if (lastMove == 0 && GetComponent<Rigidbody2D>().velocity.x > 0)
+            else if (gm.difficulty == 3) // Hard difficulty
             {
-                lastMove = 0;
-                GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
-                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                // Increase difficulty even more
             }
-            else if (lastMove == 0 && GetComponent<Rigidbody2D>().velocity.x < 0)
-            {
-                lastMove = 0;
-                GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
-                transform.rotation = Quaternion.Euler(0f, 0f, 180f);
-            }
-            else if (lastMove == 1 && GetComponent<Rigidbody2D>().velocity.x < 0)
-            {
-                lastMove = 1;
-                GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
-                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            }
-            SpawnWall();
-        }
-        else if (hitUp && GetComponent<Rigidbody2D>().velocity.y != 0)
-        {
-            if (lastMove == 1 && GetComponent<Rigidbody2D>().velocity.y > 0)
-            {
-                lastMove = 1;
-                GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
-                transform.rotation = Quaternion.Euler(0f, 0f, -90f);
-            }
-            else if (lastMove == 1 && GetComponent<Rigidbody2D>().velocity.y < 0)
-            {
-                lastMove = 1;
-                GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
-                transform.rotation = Quaternion.Euler(0f, 0f, 90f);
-            }
-            else if (lastMove == 0 && GetComponent<Rigidbody2D>().velocity.y > 0)
-            {
-                lastMove = 0;
-                GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
-                transform.rotation = Quaternion.Euler(0f, 0f, 90f);
-            }
-            else if (lastMove == 0 && GetComponent<Rigidbody2D>().velocity.y < 0)
-            {
-                lastMove = 0;
-                GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
-                transform.rotation = Quaternion.Euler(0f, 0f, -90f);
-            }
-            SpawnWall();
         }
         // Resize the collider between the current wall and last wall's end point
         FitWallCollider(currentWall, lastWallEndPoint, transform.position);
+    }
+
+
+    // Avoid Direct Collision
+    void AvoidCollision(RaycastHit2D hitRight, RaycastHit2D hitLeft)
+    {
+        float velocity_X = GetComponent<Rigidbody2D>().velocity.x;
+        float velocity_Y = GetComponent<Rigidbody2D>().velocity.y;
+        if (velocity_X != 0)
+        {
+            if ((hitLeft && velocity_X > 0) || (hitRight && velocity_X < 0))
+            {
+                GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+            }
+            else if ((hitRight && velocity_X > 0) || (hitLeft && velocity_X < 0))
+            {
+                GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            }
+            SpawnWall();
+        }
+        else if (velocity_Y != 0)
+        {
+            if ((hitLeft && velocity_Y > 0) || (hitRight && velocity_Y < 0))
+            {
+                GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+            }
+            else if ((hitRight && velocity_Y > 0) || (hitLeft && velocity_Y < 0))
+            {
+                GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+            }
+            SpawnWall();
+        }
     }
 
     // Spawn a new Lightwall

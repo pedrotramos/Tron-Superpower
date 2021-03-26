@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2408693158065581505}
   - component: {fileID: 2408693158065581506}
   - component: {fileID: 2408693158065581507}
-  - component: {fileID: 5140067371307992996}
+  - component: {fileID: 77956339906873192}
   m_Layer: 0
-  m_Name: NPC3
+  m_Name: NPC2
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2408693158065581517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 64, y: 24, z: 0}
+  m_LocalPosition: {x: -64, y: 24, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2be3d9788d9457c4699b1bf411a832d4, type: 3}
-  m_Color: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
+  m_Color: {r: 0.97118026, g: 0.6132076, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
---- !u!114 &5140067371307992996
+--- !u!114 &77956339906873192
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,9 +130,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2408693158065581517}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cc28e4276a2be24f9e5d21db61db4c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 88b7add253c65bf42a1d54979d12b9c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 25
-  lightWallPrefab: {fileID: 2336243742654301017, guid: 46689780121de294f92e40253e763963,
+  lightWallPrefab: {fileID: 2336243742654301017, guid: da41a6089e6984245a9f6560bf30d1aa,
     type: 3}
