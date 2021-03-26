@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    GameManager gm;
     public float movementSpeed = 25f;
     public GameObject lightWallPrefab;
     Collider2D currentWall;
     Vector2 lastWallEndPoint;
     public KeyCode upKey, downKey, rightKey, leftKey;
     List<GameObject> instantiatedWalls = new List<GameObject>();
+    float timer;
+    float timeToScore;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameManager.GetInstance();
+        timer = 0;
+        timeToScore = 1f;
         // Randomly decide starting direction
         float movementDirection = Random.Range(0, 4);
         if (movementDirection == 0)
@@ -39,6 +45,12 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timer += Time.deltaTime;
+        if (timer > timeToScore)
+        {
+            gm.score += 10;
+            timer = 0;
+        }
         // Change movement direction
         float inputX = 0;
         float inputY = 0;
@@ -108,6 +120,10 @@ public class Movement : MonoBehaviour
                 Destroy(w);
             }
             Destroy(gameObject);
+            if (gm.gameState == GameManager.GameState.SURVIVAL)
+            {
+                gm.ChangeState(GameManager.GameState.END_SURVIVAL);
+            }
         }
     }
 }

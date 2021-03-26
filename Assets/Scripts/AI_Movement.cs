@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AI_Movement : MonoBehaviour
 {
+    public GameManager gm;
     public float movementSpeed = 25f;
     public GameObject lightWallPrefab;
     Collider2D currentWall;
@@ -13,6 +14,7 @@ public class AI_Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameManager.GetInstance();
         // Randomly decide starting direction
         float movementDirection = Random.Range(0, 4);
         if (movementDirection == 0)
@@ -34,7 +36,6 @@ public class AI_Movement : MonoBehaviour
         SpawnWall();
     }
 
-    // Update is called once per frame
     // Update is called once per frame
     void Update()
     {
@@ -83,7 +84,7 @@ public class AI_Movement : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         // Check if the collision was not between the player and the current wall
-        if (collider != currentWall && (collider.gameObject.tag == "Wall" || collider.gameObject.tag == "Player"))
+        if (collider != currentWall)
         {
             Destroy(gameObject);
         }
