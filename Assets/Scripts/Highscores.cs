@@ -94,6 +94,10 @@ public class Highscores : MonoBehaviour
         {
             PlayerPrefs.SetString("Survival_Highscores", stats);
         }
+        else if (gm.gameState == GameManager.GameState.END_SINGLE)
+        {
+            PlayerPrefs.SetString("Single_Highscores", stats);
+        }
 
         updateHighscores();
     }
@@ -127,7 +131,11 @@ public class Highscores : MonoBehaviour
         // Carrega a string de highscores que está salva em PlayerPrefs
         if (gm.gameState == GameManager.GameState.END_SURVIVAL)
         {
-            stats = PlayerPrefs.GetString("Highscores", "");
+            stats = PlayerPrefs.GetString("Survival_Highscores", "");
+        }
+        else if (gm.gameState == GameManager.GameState.END_SINGLE)
+        {
+            stats = PlayerPrefs.GetString("Single_Highscores", "");
         }
 
         // Cria uma lista a partir da string recebida
@@ -154,7 +162,11 @@ public class Highscores : MonoBehaviour
         //Deleta os highscores que estavam salvos
         if (gm.gameState == GameManager.GameState.END_SURVIVAL)
         {
-            PlayerPrefs.DeleteKey("Highscores");
+            PlayerPrefs.DeleteKey("Survival_Highscores");
+        }
+        else if (gm.gameState == GameManager.GameState.END_SINGLE)
+        {
+            PlayerPrefs.DeleteKey("Single_Highscores");
         }
 
         //Remove os antigos highscores do display

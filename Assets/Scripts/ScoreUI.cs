@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class SurvivalScoreUI : MonoBehaviour
+public class ScoreUI : MonoBehaviour
 {
     Text textComp;
     GameManager gm;

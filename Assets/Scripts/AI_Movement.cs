@@ -9,6 +9,9 @@ public class AI_Movement : MonoBehaviour
     public GameObject lightWallPrefab;
     Collider2D currentWall;
     Vector2 lastWallEndPoint;
+    List<GameObject> instantiatedWalls = new List<GameObject>();
+    int lastMove;
+
 
 
     // Start is called before the first frame update
@@ -20,26 +23,95 @@ public class AI_Movement : MonoBehaviour
         if (movementDirection == 0)
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
+            transform.rotation = Quaternion.Euler(0f, 0f, -90f);
         }
         else if (movementDirection == 1)
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
+            transform.rotation = Quaternion.Euler(0f, 0f, 180f);
         }
         else if (movementDirection == 2)
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
+            transform.rotation = Quaternion.Euler(0f, 0f, 90f);
         }
         else
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
+        lastMove = Random.Range(0, 2); // Left = 0 | Right = 1
         SpawnWall();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // TODO: Implementar a Inteligência Artificial
+        if (gm.gameState != GameManager.GameState.SINGLE)
+        {
+            foreach (GameObject w in instantiatedWalls)
+            {
+                Destroy(w);
+            }
+            Destroy(gameObject);
+        }
+        RaycastHit2D hitUp = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 3f);
+        if (hitUp && GetComponent<Rigidbody2D>().velocity.x != 0)
+        {
+            if (lastMove == 1 && GetComponent<Rigidbody2D>().velocity.x > 0)
+            {
+                lastMove = 1;
+                GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+            }
+            else if (lastMove == 0 && GetComponent<Rigidbody2D>().velocity.x > 0)
+            {
+                lastMove = 0;
+                GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            }
+            else if (lastMove == 0 && GetComponent<Rigidbody2D>().velocity.x < 0)
+            {
+                lastMove = 0;
+                GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+            }
+            else if (lastMove == 1 && GetComponent<Rigidbody2D>().velocity.x < 0)
+            {
+                lastMove = 1;
+                GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            }
+            SpawnWall();
+        }
+        else if (hitUp && GetComponent<Rigidbody2D>().velocity.y != 0)
+        {
+            if (lastMove == 1 && GetComponent<Rigidbody2D>().velocity.y > 0)
+            {
+                lastMove = 1;
+                GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+            }
+            else if (lastMove == 1 && GetComponent<Rigidbody2D>().velocity.y < 0)
+            {
+                lastMove = 1;
+                GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+            }
+            else if (lastMove == 0 && GetComponent<Rigidbody2D>().velocity.y > 0)
+            {
+                lastMove = 0;
+                GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+            }
+            else if (lastMove == 0 && GetComponent<Rigidbody2D>().velocity.y < 0)
+            {
+                lastMove = 0;
+                GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+            }
+            SpawnWall();
+        }
         // Resize the collider between the current wall and last wall's end point
         FitWallCollider(currentWall, lastWallEndPoint, transform.position);
     }
@@ -52,6 +124,7 @@ public class AI_Movement : MonoBehaviour
 
         // Instantiate the new wall
         GameObject newWall = Instantiate(lightWallPrefab, transform.position, Quaternion.identity);
+        instantiatedWalls.Add(newWall);
         currentWall = newWall.GetComponent<Collider2D>();
     }
 
@@ -64,9 +137,6 @@ public class AI_Movement : MonoBehaviour
 
         // Calculate distance between the two points
         float dist = Vector2.Distance(vec1, vec2);
-
-        print(midpoint + " | " + dist);
-
 
         if (vec1.x != vec2.x)
         {
@@ -86,7 +156,20 @@ public class AI_Movement : MonoBehaviour
         // Check if the collision was not between the player and the current wall
         if (collider != currentWall)
         {
+            foreach (GameObject w in instantiatedWalls)
+            {
+                Destroy(w);
+            }
             Destroy(gameObject);
+            if (gm.gameState == GameManager.GameState.SINGLE)
+            {
+                gm.destroyedNPCs++;
+            }
+            if (gm.destroyedNPCs == 3)
+            {
+                gm.singleWin = true;
+                gm.ChangeState(GameManager.GameState.END_SINGLE);
+            }
         }
     }
 }

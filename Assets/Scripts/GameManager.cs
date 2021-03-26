@@ -10,6 +10,8 @@ public class GameManager
 
     public GameState gameState { get; private set; }
     public int score;
+    public int destroyedNPCs;
+    public bool singleWin;
     public delegate void ChangeStateDelegate();
     public static ChangeStateDelegate changeStateDelegate;
 
@@ -31,6 +33,8 @@ public class GameManager
     private GameManager()
     {
         score = 0;
+        destroyedNPCs = 0;
+        singleWin = false;
         gameState = GameState.MENU;
     }
 

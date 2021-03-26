@@ -26,18 +26,22 @@ public class Movement : MonoBehaviour
         if (movementDirection == 0)
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
+            transform.rotation = Quaternion.Euler(0f, 0f, -90f);
         }
         else if (movementDirection == 1)
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
+            transform.rotation = Quaternion.Euler(0f, 0f, 180f);
         }
         else if (movementDirection == 2)
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
+            transform.rotation = Quaternion.Euler(0f, 0f, 90f);
         }
         else
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
         SpawnWall();
     }
@@ -45,6 +49,14 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gm.gameState != GameManager.GameState.SINGLE && gm.gameState != GameManager.GameState.SURVIVAL)
+        {
+            foreach (GameObject w in instantiatedWalls)
+            {
+                Destroy(w);
+            }
+            Destroy(gameObject);
+        }
         timer += Time.deltaTime;
         if (timer > timeToScore)
         {
@@ -64,11 +76,20 @@ public class Movement : MonoBehaviour
         if (inputX != 0 && GetComponent<Rigidbody2D>().velocity.x == 0)
         {
             GetComponent<Rigidbody2D>().velocity = inputX * Vector2.right * movementSpeed;
+            transform.rotation = Quaternion.Euler(0f, 0f, inputX * -90f);
             SpawnWall();
         }
         else if (inputY != 0 && GetComponent<Rigidbody2D>().velocity.y == 0)
         {
             GetComponent<Rigidbody2D>().velocity = inputY * Vector2.up * movementSpeed;
+            if (inputY > 0)
+            {
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+            }
             SpawnWall();
         }
         // Resize the collider between the current wall and last wall's end point
@@ -123,6 +144,10 @@ public class Movement : MonoBehaviour
             if (gm.gameState == GameManager.GameState.SURVIVAL)
             {
                 gm.ChangeState(GameManager.GameState.END_SURVIVAL);
+            }
+            else if (gm.gameState == GameManager.GameState.SINGLE)
+            {
+                gm.ChangeState(GameManager.GameState.END_SINGLE);
             }
         }
     }
