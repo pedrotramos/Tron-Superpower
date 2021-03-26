@@ -15,7 +15,7 @@ public class EndSingleUI : MonoBehaviour
         }
         else
         {
-            message.text = "You have lost. Your score is " + gm.score.ToString();
+            message.text = "You have lost. Your score is " + gm.score.ToString() + ".";
         }
     }
 
