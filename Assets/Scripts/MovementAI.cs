@@ -12,6 +12,8 @@ public class MovementAI : MonoBehaviour
     List<GameObject> instantiatedWalls = new List<GameObject>();
     float timer;
     float timeToChangeDirection;
+    public Vector3 posicaojogador;
+    public AudioClip shootSFX; 
 
 
     // Start is called before the first frame update
@@ -20,6 +22,9 @@ public class MovementAI : MonoBehaviour
         gm = GameManager.GetInstance();
         movementSpeed = gm.speed;
         timer = 0;
+
+        
+        
         // timeToChangeDirection = 1f;
         // Randomly decide starting direction
         float movementDirection = Random.Range(0, 4);
@@ -48,7 +53,7 @@ public class MovementAI : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         if (gm.gameState != GameManager.GameState.SINGLE)
         {
             foreach (GameObject w in instantiatedWalls)
@@ -57,6 +62,7 @@ public class MovementAI : MonoBehaviour
             }
             Destroy(gameObject);
         }
+        posicaojogador = GameObject.FindWithTag("Player").transform.position;
         timer += Time.deltaTime;
         RaycastHit2D hitUp = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 3f);
         RaycastHit2D hitRight = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), 3f);
@@ -67,6 +73,11 @@ public class MovementAI : MonoBehaviour
             if (gm.difficulty == 2) // Normal difficulty
             {
                 // Increase difficulty
+                
+                Debug.Log("X:");
+                Debug.Log(posicaojogador.x); 
+                Debug.Log("Y:");
+                Debug.Log(posicaojogador.y);
             }
             else if (gm.difficulty == 3) // Hard difficulty
             {
@@ -158,6 +169,8 @@ public class MovementAI : MonoBehaviour
                 Destroy(w);
             }
             Destroy(gameObject);
+            AudioManager.PlaySFX(shootSFX);
+
             if (gm.gameState == GameManager.GameState.SINGLE)
             {
                 gm.destroyedNPCs++;

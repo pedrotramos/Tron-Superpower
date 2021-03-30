@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 8559945263089447958}
   - component: {fileID: 1868785836990203058}
   m_Layer: 0
-  m_Name: OrangeLightwall 1
+  m_Name: PurpleLightwall
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &5237083712766413103
 Transform:
