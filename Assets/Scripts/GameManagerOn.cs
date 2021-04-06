@@ -9,9 +9,11 @@ public class GameManagerOn : MonoBehaviourPunCallbacks
 
     [SerializeField] private string localizacaoPrefab;
     [SerializeField] private Transform[] SpawnPoints;
-    int numberPlayers = 0;
 
     private int jogadoresEmJogo = 0;
+    private int numberPlayers;
+
+    public float speed;
 
     private List<MovementPlayerOnline> jogadores;
 
@@ -28,7 +30,11 @@ public class GameManagerOn : MonoBehaviourPunCallbacks
     }
 
     private void Start(){
+        speed= 20f;
+        numberPlayers = 1;
+
         photonView.RPC("AdicionaJogador",RpcTarget.AllBuffered);
+        
 
         jogadores = new List<MovementPlayerOnline>();
     }
@@ -36,17 +42,52 @@ public class GameManagerOn : MonoBehaviourPunCallbacks
     [PunRPC]
     private void AdicionaJogador(){
         jogadoresEmJogo ++;
-        if (jogadoresEmJogo == PhotonNetwork.PlayerList.Length){
+        if (jogadoresEmJogo == PhotonNetwork.PlayerList.Length && jogadoresEmJogo <= 4){
             CriarJogador();
         }
     }
 
     private void CriarJogador(){
-        var jogadorObj = PhotonNetwork.Instantiate("PlayerMulti", SpawnPoints[numberPlayers].position, Quaternion.identity);
-        numberPlayers ++;
-
+        //string playername = string.Format("Player{0}", jogadoresEmJogo);
+        // Debug.Log("JogadoresEmJogo");
+        // Debug.Log(jogadoresEmJogo);
+        var jogadorObj = PhotonNetwork.Instantiate("Player2", SpawnPoints[1].position, Quaternion.identity);
         var jogador = jogadorObj.GetComponent<MovementPlayerOnline>();
-
         jogador.photonView.RPC("Inicializa",RpcTarget.All, PhotonNetwork.LocalPlayer);
+        Debug.Log("Numero:");
+        Debug.Log(numberPlayers);
+        numberPlayers++;
+        // if (numberPlayers == 1)
+        // {
+        //     var jogadorObj = PhotonNetwork.Instantiate("Player1", SpawnPoints[0].position, Quaternion.identity);
+        //     var jogador = jogadorObj.GetComponent<MovementPlayerOnline>();
+        //     jogador.photonView.RPC("Inicializa",RpcTarget.All, PhotonNetwork.LocalPlayer);
+        //     numberPlayers = 2;
+        // }
+
+        // else if (numberPlayers == 2)
+        // {
+        //     var jogadorObj = PhotonNetwork.Instantiate("Player2", SpawnPoints[1].position, Quaternion.identity);
+        //     var jogador = jogadorObj.GetComponent<MovementPlayerOnline>();
+        //     jogador.photonView.RPC("Inicializa",RpcTarget.All, PhotonNetwork.LocalPlayer);
+        //     numberPlayers = 3;
+        // }
+        // else if (numberPlayers == 3)
+        // {
+        //     var jogadorObj = PhotonNetwork.Instantiate("Player3", SpawnPoints[2].position, Quaternion.identity);
+        //     var jogador = jogadorObj.GetComponent<MovementPlayerOnline>();
+        //     jogador.photonView.RPC("Inicializa",RpcTarget.All, PhotonNetwork.LocalPlayer);
+        //     numberPlayers = 4;
+        // }
+        // else if (numberPlayers == 4)
+        // {
+        //     var jogadorObj = PhotonNetwork.Instantiate("Player4", SpawnPoints[3].position, Quaternion.identity);
+        //     var jogador = jogadorObj.GetComponent<MovementPlayerOnline>();
+        //     jogador.photonView.RPC("Inicializa",RpcTarget.All, PhotonNetwork.LocalPlayer);
+        //     numberPlayers = 1;
+        // }
+        // Debug.Log("NumeroFinal:");
+        // Debug.Log(numberPlayers);
+
     }
 }

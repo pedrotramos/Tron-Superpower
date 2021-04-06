@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 3140691614530894231}
   - component: {fileID: 3140691614530894228}
   - component: {fileID: 3140691614530894229}
-  - component: {fileID: -7751098647921568980}
-  - component: {fileID: 2806848694271025496}
-  - component: {fileID: 4159135181685590131}
+  - component: {fileID: -681800307735752961}
+  - component: {fileID: 7524962306092751221}
+  - component: {fileID: 5568160728465138012}
   m_Layer: 0
-  m_Name: PlayerMulti
+  m_Name: Player2
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3140691614530894235}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -64, y: -24, z: 0}
+  m_LocalPosition: {x: 64, y: -24, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,11 +76,11 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 818f5bb6eac1d404199c887b892c4761, type: 3}
-  m_Color: {r: 0.7264151, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.8, y: 4.87}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -123,7 +123,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
---- !u!114 &-7751098647921568980
+--- !u!114 &-681800307735752961
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,9 +137,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
+  m_SynchronizeScale: 1
   m_UseLocal: 1
---- !u!114 &2806848694271025496
+--- !u!114 &7524962306092751221
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,11 +158,11 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: -7751098647921568980}
+  - {fileID: -681800307735752961}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &4159135181685590131
+--- !u!114 &5568160728465138012
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c81cc0e708575f54db5ea23598fe35cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightWallPrefab: {fileID: 4130958265134999266, guid: f51bc91e177cb9e45ac3f8b660f23c5d,
+  lightWallPrefab: {fileID: 2336243742654301017, guid: 63c06cbadbb20a0488fc310d3668a798,
     type: 3}
   upKey: 119
   downKey: 115

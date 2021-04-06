@@ -19,27 +19,24 @@ public class MovementPlayerOnline : MonoBehaviourPunCallbacks
     private int id;
     private Photon.Realtime.Player photonPlayer;
 
-    public Rigidbody Rb { get => rb; set => rb = value; }
-
-    [SerializeField] private Rigidbody rb;
 
     [PunRPC]
     public void Inicializa(Photon.Realtime.Player player){
         photonPlayer = player;
         id = player.ActorNumber;
+        //Debug.Log(this);
         GameManagerOn.Instancia.Jogadores.Add(this);
 
         if(!photonView.IsMine){
-            Rb.isKinematic = true;
+            GetComponent<Rigidbody2D>().isKinematic = true;
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
         gm = GameManager.GetInstance();
-        movementSpeed = gm.speed;
+        movementSpeed = GameManagerOn.Instancia.speed;
         timer = 0;
         timeToScore = 1f;
         // Randomly decide starting direction
@@ -71,15 +68,14 @@ public class MovementPlayerOnline : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if (gm.gameState != GameManager.GameState.SINGLE && gm.gameState != GameManager.GameState.SURVIVAL)
-        {
-            foreach (GameObject w in instantiatedWalls)
-            {
-                Destroy(w);
-            }
-            Destroy(gameObject);
-            AudioManager.PlaySFX(shootSFX);
-        }
+        // if (gm.gameState != GameManager.GameState.SINGLE && gm.gameState != GameManager.GameState.SURVIVAL)
+        // {
+        //     foreach (GameObject w in instantiatedWalls)
+        //     {
+        //         Destroy(w);
+        //     }
+            
+        // }
         timer += Time.deltaTime;
         if (timer > timeToScore)
         {
@@ -163,15 +159,9 @@ public class MovementPlayerOnline : MonoBehaviourPunCallbacks
             {
                 Destroy(w);
             }
-            Destroy(gameObject);
-            if (gm.gameState == GameManager.GameState.SURVIVAL)
-            {
-                gm.ChangeState(GameManager.GameState.END_SURVIVAL);
-            }
-            else if (gm.gameState == GameManager.GameState.SINGLE)
-            {
-                gm.ChangeState(GameManager.GameState.END_SINGLE);
-            }
+            //Destroy(gameObject);
+            Debug.Log("Explodiu");
+            AudioManager.PlaySFX(shootSFX);
         }
     }
 }
