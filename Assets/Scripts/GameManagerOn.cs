@@ -17,11 +17,13 @@ public class GameManagerOn : MonoBehaviourPunCallbacks
 
     private List<MovementPlayerOnline> jogadores;
 
-    public List<MovementPlayerOnline> Jogadores {get => jogadores; private set => jogadores = value;}
+    public List<MovementPlayerOnline> Jogadores { get => jogadores; private set => jogadores = value; }
 
 
-    private void Awake(){
-        if (Instancia != null && Instancia != this){
+    private void Awake()
+    {
+        if (Instancia != null && Instancia != this)
+        {
             gameObject.SetActive(false);
             return;
         }
@@ -29,31 +31,35 @@ public class GameManagerOn : MonoBehaviourPunCallbacks
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start(){
-        speed= 20f;
+    private void Start()
+    {
+        speed = 20f;
         numberPlayers = 1;
 
-        photonView.RPC("AdicionaJogador",RpcTarget.AllBuffered);
-        
+        photonView.RPC("AdicionaJogador", RpcTarget.AllBuffered);
+
 
         jogadores = new List<MovementPlayerOnline>();
     }
 
     [PunRPC]
-    private void AdicionaJogador(){
-        jogadoresEmJogo ++;
-        if (jogadoresEmJogo == PhotonNetwork.PlayerList.Length && jogadoresEmJogo <= 4){
+    private void AdicionaJogador()
+    {
+        jogadoresEmJogo++;
+        if (jogadoresEmJogo == PhotonNetwork.PlayerList.Length && jogadoresEmJogo <= 4)
+        {
             CriarJogador();
         }
     }
 
-    private void CriarJogador(){
+    private void CriarJogador()
+    {
         //string playername = string.Format("Player{0}", jogadoresEmJogo);
         // Debug.Log("JogadoresEmJogo");
         // Debug.Log(jogadoresEmJogo);
-        var jogadorObj = PhotonNetwork.Instantiate("Player2", SpawnPoints[1].position, Quaternion.identity);
+        var jogadorObj = PhotonNetwork.Instantiate("Player" + numberPlayers, SpawnPoints[numberPlayers].position, Quaternion.identity);
         var jogador = jogadorObj.GetComponent<MovementPlayerOnline>();
-        jogador.photonView.RPC("Inicializa",RpcTarget.All, PhotonNetwork.LocalPlayer);
+        jogador.photonView.RPC("Inicializa", RpcTarget.All, PhotonNetwork.LocalPlayer);
         Debug.Log("Numero:");
         Debug.Log(numberPlayers);
         numberPlayers++;

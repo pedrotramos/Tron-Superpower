@@ -7,27 +7,27 @@ public class MovementPlayerOnline : MonoBehaviourPunCallbacks
 {
     GameManager gm;
     float movementSpeed;
-    public GameObject lightWallPrefab;
     Collider2D currentWall;
     Vector2 lastWallEndPoint;
     public KeyCode upKey, downKey, rightKey, leftKey;
     List<GameObject> instantiatedWalls = new List<GameObject>();
     float timer;
     float timeToScore;
-    public AudioClip shootSFX; 
-
+    public AudioClip shootSFX;
     private int id;
     private Photon.Realtime.Player photonPlayer;
 
 
     [PunRPC]
-    public void Inicializa(Photon.Realtime.Player player){
+    public void Inicializa(Photon.Realtime.Player player)
+    {
         photonPlayer = player;
         id = player.ActorNumber;
         //Debug.Log(this);
         GameManagerOn.Instancia.Jogadores.Add(this);
 
-        if(!photonView.IsMine){
+        if (!photonView.IsMine)
+        {
             GetComponent<Rigidbody2D>().isKinematic = true;
         }
     }
@@ -74,7 +74,7 @@ public class MovementPlayerOnline : MonoBehaviourPunCallbacks
         //     {
         //         Destroy(w);
         //     }
-            
+
         // }
         timer += Time.deltaTime;
         if (timer > timeToScore)
@@ -120,9 +120,9 @@ public class MovementPlayerOnline : MonoBehaviourPunCallbacks
     {
         // Define the point where the last wall ends
         lastWallEndPoint = transform.position;
-
+        string playerName = gameObject.name;
         // Instantiate the new wall
-        GameObject newWall = Instantiate(lightWallPrefab, transform.position, Quaternion.identity);
+        GameObject newWall = PhotonNetwork.Instantiate(playerName + "Lightwall", transform.position, Quaternion.identity);
         instantiatedWalls.Add(newWall);
         currentWall = newWall.GetComponent<Collider2D>();
     }
