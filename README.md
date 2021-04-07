@@ -33,7 +33,9 @@ No modo Single Player o jogador pode escolher o nível de dificulade (Easy, Norm
 ## Fluxo do jogo
 
 Tela de Início -> Tela Single Player -> Tela de Fim de Jogo Single Player
+
 Tela de Início -> Criação / Seleção de Lobby -> Tela do Lobby -> Tela Multiplayer -> Tela Fim de Jogo Multiplayer
+
 Tela de Início -> Tela Survival -> Tela Fim de Jogo Survival
 
 ## Personagens
