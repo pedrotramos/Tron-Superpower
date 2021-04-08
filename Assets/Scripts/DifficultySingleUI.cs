@@ -33,13 +33,13 @@ public class DifficultySingleUI : MonoBehaviour
     public void PlayNormal()
     {
         gm.difficulty = 2;
-        gm.speed = 25f;
+        gm.speed = 35f;
         Play();
     }
     public void PlayHard()
     {
         gm.difficulty = 3;
-        gm.speed = 35f;
+        gm.speed = 50f;
         Play();
     }
 

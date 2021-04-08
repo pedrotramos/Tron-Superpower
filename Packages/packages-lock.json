@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.elringus.spriteglow": {
+      "version": "https://github.com/Elringus/SpriteGlow.git#package",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "05442994ffb7f6c679f648d702cdf888bd8c01dc"
+    },
     "com.unity.2d.animation": {
       "version": "3.2.6",
       "depth": 0,
@@ -106,6 +113,44 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.postprocessing": {
+      "version": "3.0.3",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.physics": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.render-pipelines.core": {
+      "version": "7.5.3",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.modules.physics": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.render-pipelines.universal": {
+      "version": "7.5.3",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.render-pipelines.core": "7.5.3",
+        "com.unity.shadergraph": "7.5.3"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.shadergraph": {
+      "version": "7.5.3",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.render-pipelines.core": "7.5.3"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {

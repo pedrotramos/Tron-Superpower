@@ -61,7 +61,7 @@ public class MovementPlayer : MonoBehaviour
         timer += Time.deltaTime;
         if (timer > timeToScore)
         {
-            gm.score += 10;
+            gm.score += (gm.difficulty * 10) + (gm.destroyedNPCs * 10);
             timer = 0;
         }
         // Change movement direction
