@@ -36,21 +36,21 @@ public class DifficultySingleUI : MonoBehaviour
     public void PlayEasy()
     {
         gm.difficulty = 1;
-        gm.speed = 25f;
+        gm.speed = 20f;
         Play();
     }
 
     public void PlayNormal()
     {
         gm.difficulty = 2;
-        gm.speed = 25f;
+        gm.speed = 35f;
         Play();
     }
     public void PlayHard()
     {
         //aleatorio = Random.Range(1,3);
         gm.difficulty = 3;
-        gm.speed = 35f;
+        gm.speed = 50f;
         Play();
     }
 
