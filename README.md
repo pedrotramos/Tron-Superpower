@@ -16,7 +16,12 @@ O jogo se dá em um cenário futurista e exige uma visão estratégica do jogado
 
 Trata-se de um jogo 2D, estilo pixel art. Ou seja, uma estética simples e que exige pouco tempo para desenvolvimento, mas que também pode ser muito legal e dinâmica. Além disso, essa abordagem permite um processamento rápido e dá um ar nostálgico.
 
-## Música/Trilha Sonora
+## Música/Trilha Sonora/Clipe Introdução
+
+- Música principal:Tron Legacy - Son Of Flynn (Remix) https://www.youtube.com/watch?v=TWJVgTeNljs
+- Efeito sonoro da explosão: https://freesound.org/people/tommccann/sounds/235968/
+- Clipe introdução: Retirado da cena final do filme - https://www.youtube.com/watch?v=qolzPKVQa10&t=94s
+
 
 ## Interface
 
@@ -56,6 +61,9 @@ Jetwall -> Rastro de luz que elimina qualquer jogador que entre em contato front
 - Modo Multiplayer (08/04/21)
 
 ### Teste e Feedback (12/04/21)
+
+- Diferentes mapas para todos modos
+- Melhoria na AI dos NPCs
 
 ### Teste e Feedback (22/04/21)
 
