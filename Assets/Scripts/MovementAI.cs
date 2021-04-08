@@ -206,13 +206,13 @@ public class MovementAI : MonoBehaviour
                 {
                     GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, -90);
-                    Debug.Log("Direita aleatorio");
+                    //Debug.Log("Direita aleatorio");
                 }
                 else
                 {
                     GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, 90f);
-                    Debug.Log("Esquerda aleatorio");
+                    //Debug.Log("Esquerda aleatorio");
                 }
             }
             SpawnWall();
@@ -228,24 +228,24 @@ public class MovementAI : MonoBehaviour
             {
                 GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 180f);
-                Debug.Log("Desceu");
+                //Debug.Log("Desceu");
             }
             else if ((hitRight && velocity_X > 0) || (hitLeft && velocity_X < 0))
             {
                 GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                Debug.Log("Subiu");
+                //Debug.Log("Subiu");
             } else {
                 //movimento aleatorio de virada
                 int vira = Random.Range(0,10);
                 if (vira < 5){
                     GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, 180);
-                    Debug.Log("Desceu aleatorio");
+                    //Debug.Log("Desceu aleatorio");
                 } else {
                     GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                    Debug.Log("Subiu aleatorio");
+                    //Debug.Log("Subiu aleatorio");
                 }
 
             }
@@ -257,13 +257,13 @@ public class MovementAI : MonoBehaviour
             {
                 GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, -90f);
-                Debug.Log("Direta");
+                //Debug.Log("Direta");
             }
             else if ((hitRight && velocity_Y > 0) || (hitLeft && velocity_Y < 0))
             {
                 GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 90f);
-                Debug.Log("Esquerda");
+                //Debug.Log("Esquerda");
             }
             else{
                 //movimento aleatorio de virada
@@ -271,11 +271,11 @@ public class MovementAI : MonoBehaviour
                 if (vira < 5){
                     GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, -90);
-                    Debug.Log("Direita aleatorio");
+                    //Debug.Log("Direita aleatorio");
                 } else {
                     GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, 90f);
-                    Debug.Log("Esquerda aleatorio");
+                    //Debug.Log("Esquerda aleatorio");
                 }
 
             }

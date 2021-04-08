@@ -16,10 +16,7 @@ public class MainMenuUI : MonoBehaviour
 
     public void PlaySurvival()
     {
-        gm.speed = 35f;
-        Vector3 pos = new Vector3(0f, 0f, 0f);
-        Instantiate(player1, pos, Quaternion.identity);
-        gm.ChangeState(GameManager.GameState.SURVIVAL);
+        gm.ChangeState(GameManager.GameState.DIFFICULTY_SURVIVAL);
     }
 
     public void PlaySingle()

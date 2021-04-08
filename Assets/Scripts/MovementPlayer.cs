@@ -15,6 +15,8 @@ public class MovementPlayer : MonoBehaviour
     float timeToScore;
     public AudioClip shootSFX;
 
+    private GameObject[] ListadeObstaculos;
+
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +58,7 @@ public class MovementPlayer : MonoBehaviour
             foreach (GameObject w in instantiatedWalls)
             {
                 Destroy(w);
+                
             }
             Destroy(gameObject);
             AudioManager.PlaySFX(shootSFX);
@@ -151,12 +154,21 @@ public class MovementPlayer : MonoBehaviour
                 Destroy(w);
             }
             Destroy(gameObject);
+            AudioManager.PlaySFX(shootSFX);
             if (gm.gameState == GameManager.GameState.SURVIVAL)
             {
                 gm.ChangeState(GameManager.GameState.END_SURVIVAL);
+                ListadeObstaculos =  GameObject.FindGameObjectsWithTag ("Obstaculo");
+                for(int i = 0 ; i < ListadeObstaculos.Length ; i ++){
+                    Destroy(ListadeObstaculos[i]);
+                }
             }
             else if (gm.gameState == GameManager.GameState.SINGLE)
             {
+                ListadeObstaculos =  GameObject.FindGameObjectsWithTag ("Obstaculo");
+                for(int i = 0 ; i < ListadeObstaculos.Length ; i ++){
+                    Destroy(ListadeObstaculos[i]);
+                }
                 gm.ChangeState(GameManager.GameState.END_SINGLE);
             }
         }
