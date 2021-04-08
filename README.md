@@ -58,12 +58,11 @@ Jetwall -> Rastro de luz que elimina qualquer jogador que entre em contato front
 - Modo Survival (25/03/21)
 - Modo Single Player, AI básica dos NPCs e Highscore final (26/03/21)
 - Tela de escolha de dificuldades para o modo Single Player (26/03/21)
-- Modo Multiplayer (08/04/21)
+- Diferentes mapas para modo singleplayer (08/04/21)
+- Melhoria na AI dos NPCs (08/04/21)
 
 ### Teste e Feedback (12/04/21)
 
-- Diferentes mapas para todos modos
-- Melhoria na AI dos NPCs
 
 ### Teste e Feedback (22/04/21)
 
