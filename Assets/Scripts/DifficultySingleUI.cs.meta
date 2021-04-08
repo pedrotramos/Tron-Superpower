@@ -3,7 +3,16 @@ guid: 3071bb0af4896af479b1fbdbca2b8f08
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - player1: {instanceID: 0}
+  - player2: {instanceID: 0}
+  - player3: {instanceID: 0}
+  - player4: {instanceID: 0}
+  - NPC1: {instanceID: 0}
+  - NPC2: {instanceID: 0}
+  - NPC3: {instanceID: 0}
+  - Obstaculo: {fileID: 5891029618548784523, guid: 1332e23487125a544bfa13094d4eda52,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

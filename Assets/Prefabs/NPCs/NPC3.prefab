@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2be3d9788d9457c4699b1bf411a832d4, type: 3}
-  m_Color: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
+  m_Color: {r: 0.34229445, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b7add253c65bf42a1d54979d12b9c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 25
-  lightWallPrefab: {fileID: 2336243742654301017, guid: 46689780121de294f92e40253e763963,
+  lightWallPrefab: {fileID: 2336243742654301017, guid: 164a5bd486301e64d9d75209dab83a30,
     type: 3}
+  posicaojogador: {x: 0, y: 0, z: 0}
+  shootSFX: {fileID: 8300000, guid: a76bc506c56143d4bbdcc57a404def8b, type: 3}

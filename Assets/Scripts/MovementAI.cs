@@ -12,6 +12,10 @@ public class MovementAI : MonoBehaviour
     List<GameObject> instantiatedWalls = new List<GameObject>();
     float timer;
     float timeToChangeDirection;
+    public Vector3 posicaojogador;
+    public AudioClip shootSFX; 
+
+    private float timetochange;
 
 
     // Start is called before the first frame update
@@ -48,7 +52,7 @@ public class MovementAI : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         if (gm.gameState != GameManager.GameState.SINGLE)
         {
             foreach (GameObject w in instantiatedWalls)
@@ -57,6 +61,7 @@ public class MovementAI : MonoBehaviour
             }
             Destroy(gameObject);
         }
+        posicaojogador = GameObject.FindWithTag("Player").transform.position;
         timer += Time.deltaTime;
         RaycastHit2D hitUp = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 3f);
         RaycastHit2D hitRight = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), 3f);
@@ -73,6 +78,7 @@ public class MovementAI : MonoBehaviour
             if (gm.difficulty == 2) // Normal difficulty
             {
                 // Increase difficulty
+                
             }
             else if (gm.difficulty == 3) // Hard difficulty
             {
@@ -213,6 +219,70 @@ public class MovementAI : MonoBehaviour
         }
     }
 
+    void MudarDeDirecao(RaycastHit2D hitRight, RaycastHit2D hitLeft){
+        float velocity_X = GetComponent<Rigidbody2D>().velocity.x;
+        float velocity_Y = GetComponent<Rigidbody2D>().velocity.y;
+        if (velocity_X != 0)
+        {
+            if ((hitLeft && velocity_X > 0) || (hitRight && velocity_X < 0)) // --> e pega em cima
+            {
+                GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+                Debug.Log("Desceu");
+            }
+            else if ((hitRight && velocity_X > 0) || (hitLeft && velocity_X < 0))
+            {
+                GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                Debug.Log("Subiu");
+            } else {
+                //movimento aleatorio de virada
+                int vira = Random.Range(0,10);
+                if (vira < 5){
+                    GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
+                    transform.rotation = Quaternion.Euler(0f, 0f, 180);
+                    Debug.Log("Desceu aleatorio");
+                } else {
+                    GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
+                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    Debug.Log("Subiu aleatorio");
+                }
+
+            }
+            SpawnWall();
+        }
+        else if (velocity_Y != 0)
+        {
+            if ((hitLeft && velocity_Y > 0) || (hitRight && velocity_Y < 0)) 
+            {
+                GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+                Debug.Log("Direta");
+            }
+            else if ((hitRight && velocity_Y > 0) || (hitLeft && velocity_Y < 0))
+            {
+                GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+                Debug.Log("Esquerda");
+            }
+            else{
+                //movimento aleatorio de virada
+                int vira = Random.Range(0,10);
+                if (vira < 5){
+                    GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
+                    transform.rotation = Quaternion.Euler(0f, 0f, -90);
+                    Debug.Log("Direita aleatorio");
+                } else {
+                    GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
+                    transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+                    Debug.Log("Esquerda aleatorio");
+                }
+
+            }
+            SpawnWall();
+        }
+    }
+
     // Spawn a new Lightwall
     void SpawnWall()
     {
@@ -258,6 +328,8 @@ public class MovementAI : MonoBehaviour
                 Destroy(w);
             }
             Destroy(gameObject);
+            AudioManager.PlaySFX(shootSFX);
+
             if (gm.gameState == GameManager.GameState.SINGLE)
             {
                 gm.destroyedNPCs++;

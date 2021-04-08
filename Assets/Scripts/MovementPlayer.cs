@@ -13,6 +13,7 @@ public class MovementPlayer : MonoBehaviour
     List<GameObject> instantiatedWalls = new List<GameObject>();
     float timer;
     float timeToScore;
+    public AudioClip shootSFX; 
 
 
     // Start is called before the first frame update
@@ -57,6 +58,7 @@ public class MovementPlayer : MonoBehaviour
                 Destroy(w);
             }
             Destroy(gameObject);
+            AudioManager.PlaySFX(shootSFX);
         }
         timer += Time.deltaTime;
         if (timer > timeToScore)
