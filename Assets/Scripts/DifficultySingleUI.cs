@@ -15,15 +15,17 @@ public class DifficultySingleUI : MonoBehaviour
     }
 
     void Play()
-    {   
-        if (gm.difficulty == 2){  
+    {
+        if (gm.difficulty == 2)
+        {
             Instantiate(ObstaculoG, ObstaculoG.transform.position, Quaternion.identity);
         }
-        else if (gm.difficulty == 3){
-            Instantiate(Obstaculo, new Vector3(35f,35f,0f), Quaternion.identity);
-            Instantiate(Obstaculo, new Vector3(-35f,35f,0f), Quaternion.identity);
-            Instantiate(Obstaculo, new Vector3(35f,-35f,0f), Quaternion.identity);
-            Instantiate(Obstaculo, new Vector3(-35f,-35f,0f), Quaternion.identity);
+        else if (gm.difficulty == 3)
+        {
+            Instantiate(Obstaculo, new Vector3(35f, 35f, 0f), Quaternion.identity);
+            Instantiate(Obstaculo, new Vector3(-35f, 35f, 0f), Quaternion.identity);
+            Instantiate(Obstaculo, new Vector3(35f, -35f, 0f), Quaternion.identity);
+            Instantiate(Obstaculo, new Vector3(-35f, -35f, 0f), Quaternion.identity);
             Instantiate(Obstaculo, Obstaculo.transform.position, Quaternion.identity);
         }
         Instantiate(player1, player1.transform.position, Quaternion.identity);

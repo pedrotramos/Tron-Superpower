@@ -13,7 +13,7 @@ public class MovementPlayer : MonoBehaviour
     List<GameObject> instantiatedWalls = new List<GameObject>();
     float timer;
     float timeToScore;
-    public AudioClip shootSFX; 
+    public AudioClip shootSFX;
 
 
     // Start is called before the first frame update
@@ -63,7 +63,14 @@ public class MovementPlayer : MonoBehaviour
         timer += Time.deltaTime;
         if (timer > timeToScore)
         {
-            gm.score += (gm.difficulty * 10) + (gm.destroyedNPCs * 10);
+            if (gm.gameState == GameManager.GameState.SINGLE)
+            {
+                gm.score += (gm.difficulty * 10) + (gm.destroyedNPCs * 10);
+            }
+            else if (gm.gameState == GameManager.GameState.SURVIVAL)
+            {
+                gm.score += 10 * gm.difficulty;
+            }
             timer = 0;
         }
         // Change movement direction

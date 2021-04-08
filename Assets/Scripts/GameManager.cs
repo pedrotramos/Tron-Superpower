@@ -6,7 +6,7 @@ public class GameManager
 {
     private static GameManager _instance;
 
-    public enum GameState { MENU, SURVIVAL, DIFFICULTY_SINGLE, SINGLE, LOCAL, ONLINE, END_SURVIVAL, END_SINGLE };
+    public enum GameState { MENU, SURVIVAL, DIFFICULTY_SINGLE, SINGLE, END_SURVIVAL, END_SINGLE };
 
     public GameState gameState { get; private set; }
     public int score;
