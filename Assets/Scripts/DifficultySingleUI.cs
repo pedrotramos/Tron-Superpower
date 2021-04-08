@@ -26,7 +26,7 @@ public class DifficultySingleUI : MonoBehaviour
     public void PlayEasy()
     {
         gm.difficulty = 1;
-        gm.speed = 25f;
+        gm.speed = 20f;
         Play();
     }
 
