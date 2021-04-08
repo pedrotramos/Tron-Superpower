@@ -27,8 +27,4 @@ public class MainMenuUI : MonoBehaviour
         gm.ChangeState(GameManager.GameState.DIFFICULTY_SINGLE);
     }
 
-    public void PlayMultiplayer()
-    {
-        gm.ChangeState(GameManager.GameState.MULTIPLAYER);
-    }
 }
