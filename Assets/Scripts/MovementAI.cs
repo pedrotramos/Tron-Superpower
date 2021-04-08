@@ -20,7 +20,7 @@ public class MovementAI : MonoBehaviour
         gm = GameManager.GetInstance();
         movementSpeed = gm.speed;
         timer = 0;
-        // timeToChangeDirection = 1f;
+        timeToChangeDirection = Random.Range(1.5f, 4f);
         // Randomly decide starting direction
         float movementDirection = Random.Range(0, 4);
         if (movementDirection == 0)
@@ -60,8 +60,14 @@ public class MovementAI : MonoBehaviour
         timer += Time.deltaTime;
         RaycastHit2D hitUp = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 3f);
         RaycastHit2D hitRight = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), 3f);
-        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 3f);
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.left), 3f);
         if (hitUp) AvoidCollision(hitRight, hitLeft);
+        else if (timer >= timeToChangeDirection)
+        {
+            ChangeDirection(hitRight, hitLeft);
+            timer = 0f;
+            timeToChangeDirection = Random.Range(1.5f, 4f);
+        }
         else
         {
             if (gm.difficulty == 2) // Normal difficulty
@@ -77,6 +83,72 @@ public class MovementAI : MonoBehaviour
         FitWallCollider(currentWall, lastWallEndPoint, transform.position);
     }
 
+    void ChangeDirection(RaycastHit2D hitRight, RaycastHit2D hitLeft)
+    {
+        float velocity_X = GetComponent<Rigidbody2D>().velocity.x;
+        float velocity_Y = GetComponent<Rigidbody2D>().velocity.y;
+        if (hitRight && hitLeft) return;
+        else if (velocity_X != 0)
+        {
+            if ((hitLeft && velocity_X > 0) || (hitRight && velocity_X < 0)) // Obstacle on top
+            {
+                GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+            }
+            else if ((hitRight && velocity_X > 0) || (hitLeft && velocity_X < 0)) // Obstacle below
+            {
+                GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            }
+            else if (!hitRight && !hitLeft)
+            {
+                // Random turn
+                int vira = Random.Range(0, 10);
+                if (vira < 5)
+                {
+                    GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
+                    transform.rotation = Quaternion.Euler(0f, 0f, 180);
+                }
+                else
+                {
+                    GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
+                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                }
+
+            }
+            SpawnWall();
+        }
+        else if (velocity_Y != 0)
+        {
+            if ((hitLeft && velocity_Y > 0) || (hitRight && velocity_Y < 0))
+            {
+                GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+            }
+            else if ((hitRight && velocity_Y > 0) || (hitLeft && velocity_Y < 0))
+            {
+                GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
+                transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+            }
+            else if (!hitRight && !hitLeft)
+            {
+                //movimento aleatorio de virada
+                int vira = Random.Range(0, 10);
+                if (vira < 5)
+                {
+                    GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
+                    transform.rotation = Quaternion.Euler(0f, 0f, -90);
+                }
+                else
+                {
+                    GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
+                    transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+                }
+
+            }
+            SpawnWall();
+        }
+    }
 
     // Avoid Direct Collision
     void AvoidCollision(RaycastHit2D hitRight, RaycastHit2D hitLeft)
@@ -95,6 +167,19 @@ public class MovementAI : MonoBehaviour
                 GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             }
+            else
+            {
+                if (Random.Range(0, 10) < 5)
+                {
+                    GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
+                    transform.rotation = Quaternion.Euler(0f, 0f, 180);
+                }
+                else
+                {
+                    GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
+                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                }
+            }
             SpawnWall();
         }
         else if (velocity_Y != 0)
@@ -108,6 +193,21 @@ public class MovementAI : MonoBehaviour
             {
                 GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+            }
+            else
+            {
+                if (Random.Range(0, 10) < 5)
+                {
+                    GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
+                    transform.rotation = Quaternion.Euler(0f, 0f, -90);
+                    Debug.Log("Direita aleatorio");
+                }
+                else
+                {
+                    GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
+                    transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+                    Debug.Log("Esquerda aleatorio");
+                }
             }
             SpawnWall();
         }
