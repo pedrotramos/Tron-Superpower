@@ -16,11 +16,7 @@ public class DifficultySurvivalUI : MonoBehaviour
 
     void Play()
     {
-        if (gm.difficulty == 2)
-        {
-            Instantiate(ObstaculoG, ObstaculoG.transform.position, Quaternion.identity);
-        }
-        else if (gm.difficulty == 3)
+        if (gm.difficulty == 3)
         {
             Instantiate(Obstaculo, new Vector3(35f, 35f, 0f), Quaternion.identity);
             Instantiate(Obstaculo, new Vector3(-35f, 35f, 0f), Quaternion.identity);
