@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DifficultySurvivalUI1 : MonoBehaviour
+public class DifficultySurvivalUI : MonoBehaviour
 {
     public GameObject player1;
     public GameObject Obstaculo, ObstaculoG;
@@ -22,15 +22,13 @@ public class DifficultySurvivalUI1 : MonoBehaviour
         }
         else if (gm.difficulty == 3)
         {
-            Instantiate(ObstaculoG, ObstaculoG.transform.position, Quaternion.identity);
             Instantiate(Obstaculo, new Vector3(35f, 35f, 0f), Quaternion.identity);
             Instantiate(Obstaculo, new Vector3(-35f, 35f, 0f), Quaternion.identity);
             Instantiate(Obstaculo, new Vector3(35f, -35f, 0f), Quaternion.identity);
             Instantiate(Obstaculo, new Vector3(-35f, -35f, 0f), Quaternion.identity);
         }
-        Instantiate(player1, player1.transform.position, Quaternion.identity);
-        //Vector3 pos = new Vector3(0f, 0f, 0f);
-        //Instantiate(player1, pos, Quaternion.identity);
+        Vector3 pos = new Vector3(0f, 0f, 0f);
+        Instantiate(player1, pos, Quaternion.identity);
         gm.ChangeState(GameManager.GameState.SURVIVAL);
     }
 
