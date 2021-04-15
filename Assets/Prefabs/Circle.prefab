@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3140691614530894235
+--- !u!1 &780822649107202561
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3140691614530894230}
-  - component: {fileID: 3140691614530894231}
-  - component: {fileID: 3140691614530894228}
-  - component: {fileID: 3140691614530894229}
-  - component: {fileID: 1392596527743211154}
+  - component: {fileID: 317053092197308325}
+  - component: {fileID: 4422802235251962836}
+  - component: {fileID: 1738071211966468887}
+  - component: {fileID: -3674155073303711283}
   m_Layer: 0
-  m_Name: Player1
-  m_TagString: Player
+  m_Name: Circle
+  m_TagString: Coletavel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3140691614530894230
+--- !u!4 &317053092197308325
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3140691614530894235}
+  m_GameObject: {fileID: 780822649107202561}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -64, y: -24, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3140691614530894231
+--- !u!212 &4422802235251962836
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3140691614530894235}
+  m_GameObject: {fileID: 780822649107202561}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -72,46 +71,25 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 818f5bb6eac1d404199c887b892c4761, type: 3}
-  m_Color: {r: 0.7264151, g: 1, b: 1, a: 1}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 2be3d9788d9457c4699b1bf411a832d4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.8, y: 4.87}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &3140691614530894228
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3140691614530894235}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!58 &3140691614530894229
+--- !u!58 &1738071211966468887
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3140691614530894235}
+  m_GameObject: {fileID: 780822649107202561}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -120,25 +98,17 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
---- !u!114 &1392596527743211154
+  m_Radius: 0.5
+--- !u!114 &-3674155073303711283
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3140691614530894235}
+  m_GameObject: {fileID: 780822649107202561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6e689a615a4b7742b78b618786a05bd, type: 3}
+  m_Script: {fileID: 11500000, guid: da480a0eb61db754a91c7c4803d54649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightWallPrefab: {fileID: 4130958265134999266, guid: 1bf54d8d0cf7bae4b880f5b3abaa7119,
-    type: 3}
-  ObjetoColetavel: {fileID: 780822649107202561, guid: 1ad98926de157cd4799e254144033829,
-    type: 3}
-  upKey: 119
-  downKey: 115
-  rightKey: 100
-  leftKey: 97
-  shootSFX: {fileID: 8300000, guid: a76bc506c56143d4bbdcc57a404def8b, type: 3}
+  ObjetoColetavel: {fileID: 780822649107202561}
