@@ -32,7 +32,7 @@ public class MovementPlayer : MonoBehaviour
         timerMove = 0f;
         timeToScore = 1f;
         timetospawn = 0f;
-        timeToMove = gm.difficulty == 1 ? 0.15f : 0.225f / gm.difficulty;
+        timeToMove = gm.difficulty == 1 ? 0.15f : 0.3f / gm.difficulty;
         // Randomly decide starting direction
         float movementDirection = Random.Range(0, 4);
         if (movementDirection == 0)

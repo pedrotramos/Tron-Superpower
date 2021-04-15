@@ -121,10 +121,6 @@ MonoBehaviour:
     type: 3}
   ObjetoColetavel: {fileID: 780822649107202561, guid: 1ad98926de157cd4799e254144033829,
     type: 3}
-  upKey: 119
-  downKey: 115
-  rightKey: 100
-  leftKey: 97
   shootSFX: {fileID: 8300000, guid: a76bc506c56143d4bbdcc57a404def8b, type: 3}
 --- !u!61 &1098428717623417928
 BoxCollider2D:
@@ -139,7 +135,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -150,5 +146,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 2.4}
+  m_Size: {x: 1.2, y: 1.6}
   m_EdgeRadius: 0

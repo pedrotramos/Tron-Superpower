@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
+  - Undefined
+  - Obstaculo
+  - Coletavel
   layers:
   - Default
   - TransparentFX
