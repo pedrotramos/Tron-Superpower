@@ -68,7 +68,7 @@ Com os feedback recebidos, nós fizemos uma série de melhorias no jogo:
 - Impedir que mais de uma entrada na tabela de highscores seja feita em uma mesma partida.
 - Diminuição da velociade no modo Hard, com o objetivo de evitar que não haja tempo de reação o suficiente.
 - Permitir que o jogador jogue utilizando as teclas WASD, mas também com as setas.
-- 
+- Impedir que o jogador ou os NPCs mudem de direção rápido demais e andem sobre um rastro já formado.
 
 ### Teste e Feedback (22/04/21)
 
