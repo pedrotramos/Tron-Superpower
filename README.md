@@ -63,6 +63,12 @@ Jetwall -> Rastro de luz que elimina qualquer jogador que entre em contato front
 
 ### Teste e Feedback (12/04/21)
 
+Com os feedback recebidos, nós fizemos uma série de melhorias no jogo:
+
+- Impedir que mais de uma entrada na tabela de highscores seja feita em uma mesma partida.
+- Diminuição da velociade no modo Hard, com o objetivo de evitar que não haja tempo de reação o suficiente.
+- Permitir que o jogador jogue utilizando as teclas WASD, mas também com as setas.
+- 
 
 ### Teste e Feedback (22/04/21)
 

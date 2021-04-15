@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3140691614530894230}
   - component: {fileID: 3140691614530894231}
   - component: {fileID: 3140691614530894228}
-  - component: {fileID: 3140691614530894229}
   - component: {fileID: 1392596527743211154}
+  - component: {fileID: 1098428717623417928}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Player
@@ -105,22 +105,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &3140691614530894229
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3140691614530894235}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
 --- !u!114 &1392596527743211154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,8 +119,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightWallPrefab: {fileID: 4130958265134999266, guid: 1bf54d8d0cf7bae4b880f5b3abaa7119,
     type: 3}
-  upKey: 119
-  downKey: 115
-  rightKey: 100
-  leftKey: 97
   shootSFX: {fileID: 8300000, guid: a76bc506c56143d4bbdcc57a404def8b, type: 3}
+--- !u!61 &1098428717623417928
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3140691614530894235}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.8, y: 4.87}
+    newSize: {x: 1.8, y: 4.87}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.2, y: 2.4}
+  m_EdgeRadius: 0
