@@ -42,8 +42,10 @@ public class Highscores : MonoBehaviour
     public void SubmitButton()
     {
         // Um determinado highscore só enviado se o username não estiver vazio
-        if (username.text.Length > 0 && username.enabled)
+        if (username.text.Length > 0 && username.enabled && gm.addHighscore)
         {
+            // Bloqueia a adição de mais de um score por jogada
+            gm.addHighscore = false;
             // Cria um objeto usando o InputField para o username e a pontuação do jogador
             // obtida através do GameManager
             PlayerInfo stats = new PlayerInfo(username.text, gm.score);

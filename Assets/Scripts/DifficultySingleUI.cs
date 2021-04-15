@@ -33,6 +33,7 @@ public class DifficultySingleUI : MonoBehaviour
         Instantiate(NPC2, NPC2.transform.position, Quaternion.identity);
         Instantiate(NPC3, NPC3.transform.position, Quaternion.identity);
         gm.ChangeState(GameManager.GameState.SINGLE);
+        gm.addHighscore = true;
     }
 
     public void PlayEasy()
@@ -45,14 +46,14 @@ public class DifficultySingleUI : MonoBehaviour
     public void PlayNormal()
     {
         gm.difficulty = 2;
-        gm.speed = 35f;
+        gm.speed = 30f;
         Play();
     }
     public void PlayHard()
     {
         //aleatorio = Random.Range(1,3);
         gm.difficulty = 3;
-        gm.speed = 50f;
+        gm.speed = 40f;
         Play();
     }
 

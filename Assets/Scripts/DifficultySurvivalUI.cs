@@ -26,6 +26,7 @@ public class DifficultySurvivalUI : MonoBehaviour
         Vector3 pos = new Vector3(0f, 0f, 0f);
         Instantiate(player1, pos, Quaternion.identity);
         gm.ChangeState(GameManager.GameState.SURVIVAL);
+        gm.addHighscore = true;
     }
 
     public void PlayEasy()
@@ -38,13 +39,13 @@ public class DifficultySurvivalUI : MonoBehaviour
     public void PlayNormal()
     {
         gm.difficulty = 2;
-        gm.speed = 35f;
+        gm.speed = 30f;
         Play();
     }
     public void PlayHard()
     {
         gm.difficulty = 3;
-        gm.speed = 50f;
+        gm.speed = 40f;
         Play();
     }
 

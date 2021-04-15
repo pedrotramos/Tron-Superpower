@@ -14,6 +14,7 @@ public class GameManager
     public int difficulty;
     public int destroyedNPCs;
     public bool singleWin;
+    public bool addHighscore;
     public delegate void ChangeStateDelegate();
     public static ChangeStateDelegate changeStateDelegate;
 
