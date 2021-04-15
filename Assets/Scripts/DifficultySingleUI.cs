@@ -28,9 +28,9 @@ public class DifficultySingleUI : MonoBehaviour
             Instantiate(Obstaculo, new Vector3(-35f, -35f, 0f), Quaternion.identity);
             Instantiate(Obstaculo, Obstaculo.transform.position, Quaternion.identity);
         }
-        Instantiate(player1, player1.transform.position, Quaternion.identity);
-        Instantiate(NPC1, NPC1.transform.position, Quaternion.identity);
-        Instantiate(NPC2, NPC2.transform.position, Quaternion.identity);
+        // Instantiate(player1, player1.transform.position, Quaternion.identity);
+        // Instantiate(NPC1, NPC1.transform.position, Quaternion.identity);
+        // Instantiate(NPC2, NPC2.transform.position, Quaternion.identity);
         Instantiate(NPC3, NPC3.transform.position, Quaternion.identity);
         gm.ChangeState(GameManager.GameState.SINGLE);
         gm.addHighscore = true;

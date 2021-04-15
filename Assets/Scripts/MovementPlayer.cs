@@ -9,11 +9,14 @@ public class MovementPlayer : MonoBehaviour
     public GameObject lightWallPrefab,ObjetoColetavel;
     Collider2D currentWall;
     Vector2 lastWallEndPoint;
-    public KeyCode upKey, downKey, rightKey, leftKey;
     List<GameObject> instantiatedWalls = new List<GameObject>();
     List<GameObject> instantiatedCollectibles = new List<GameObject>();
     float timer;
-    float timeToScore,timetospawn;
+    float timetospawn;
+    float timeToScore;
+    float timeToMove;
+    float timerMove;
+    
     public AudioClip shootSFX;
 
     private GameObject[] ListadeObstaculos;
@@ -26,8 +29,10 @@ public class MovementPlayer : MonoBehaviour
         gm = GameManager.GetInstance();
         movementSpeed = gm.speed;
         timer = 0;
+        timerMove = 0f;
         timeToScore = 1f;
         timetospawn = 0f;
+        timeToMove = gm.difficulty == 1 ? 0.15f : 0.225f / gm.difficulty;
         // Randomly decide starting direction
         float movementDirection = Random.Range(0, 4);
         if (movementDirection == 0)
@@ -65,12 +70,12 @@ public class MovementPlayer : MonoBehaviour
             foreach (GameObject w in instantiatedWalls)
             {
                 Destroy(w);
-                
             }
             Destroy(gameObject);
             AudioManager.PlaySFX(shootSFX);
         }
         timer += Time.deltaTime;
+        timerMove += Time.deltaTime;
         if (timer > timeToScore)
         {
             if (gm.gameState == GameManager.GameState.SINGLE)
@@ -84,23 +89,19 @@ public class MovementPlayer : MonoBehaviour
             timer = 0;
         }
         // Change movement direction
-        float inputX = 0;
-        float inputY = 0;
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputY = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(rightKey)) inputX = 1;
-        else if (Input.GetKeyDown(leftKey)) inputX = -1;
-
-        if (Input.GetKeyDown(upKey)) inputY = 1;
-        else if (Input.GetKeyDown(downKey)) inputY = -1;
-
-        if (inputX != 0 && GetComponent<Rigidbody2D>().velocity.x == 0)
+        if (inputX != 0 && GetComponent<Rigidbody2D>().velocity.x == 0 && timerMove > timeToMove)
         {
+            timerMove = 0f;
             GetComponent<Rigidbody2D>().velocity = inputX * Vector2.right * movementSpeed;
             transform.rotation = Quaternion.Euler(0f, 0f, inputX * -90f);
             SpawnWall();
         }
-        else if (inputY != 0 && GetComponent<Rigidbody2D>().velocity.y == 0)
+        else if (inputY != 0 && GetComponent<Rigidbody2D>().velocity.y == 0 && timerMove > timeToMove)
         {
+            timerMove = 0f;
             GetComponent<Rigidbody2D>().velocity = inputY * Vector2.up * movementSpeed;
             if (inputY > 0)
             {
@@ -199,15 +200,17 @@ public class MovementPlayer : MonoBehaviour
             if (gm.gameState == GameManager.GameState.SURVIVAL)
             {
                 gm.ChangeState(GameManager.GameState.END_SURVIVAL);
-                ListadeObstaculos =  GameObject.FindGameObjectsWithTag ("Obstaculo");
-                for(int i = 0 ; i < ListadeObstaculos.Length ; i ++){
+                ListadeObstaculos = GameObject.FindGameObjectsWithTag("Obstaculo");
+                for (int i = 0; i < ListadeObstaculos.Length; i++)
+                {
                     Destroy(ListadeObstaculos[i]);
                 }
             }
             else if (gm.gameState == GameManager.GameState.SINGLE)
             {
-                ListadeObstaculos =  GameObject.FindGameObjectsWithTag ("Obstaculo");
-                for(int i = 0 ; i < ListadeObstaculos.Length ; i ++){
+                ListadeObstaculos = GameObject.FindGameObjectsWithTag("Obstaculo");
+                for (int i = 0; i < ListadeObstaculos.Length; i++)
+                {
                     Destroy(ListadeObstaculos[i]);
                 }
                 gm.ChangeState(GameManager.GameState.END_SINGLE);
