@@ -119,6 +119,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightWallPrefab: {fileID: 4130958265134999266, guid: 1bf54d8d0cf7bae4b880f5b3abaa7119,
     type: 3}
+  ObjetoColetavel: {fileID: 780822649107202561, guid: 1ad98926de157cd4799e254144033829,
+    type: 3}
+  upKey: 119
+  downKey: 115
+  rightKey: 100
+  leftKey: 97
   shootSFX: {fileID: 8300000, guid: a76bc506c56143d4bbdcc57a404def8b, type: 3}
 --- !u!61 &1098428717623417928
 BoxCollider2D:

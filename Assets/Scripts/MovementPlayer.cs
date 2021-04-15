@@ -6,17 +6,21 @@ public class MovementPlayer : MonoBehaviour
 {
     GameManager gm;
     float movementSpeed;
-    public GameObject lightWallPrefab;
+    public GameObject lightWallPrefab,ObjetoColetavel;
     Collider2D currentWall;
     Vector2 lastWallEndPoint;
     List<GameObject> instantiatedWalls = new List<GameObject>();
+    List<GameObject> instantiatedCollectibles = new List<GameObject>();
     float timer;
+    float timetospawn;
     float timeToScore;
     float timeToMove;
     float timerMove;
+    
     public AudioClip shootSFX;
 
     private GameObject[] ListadeObstaculos;
+    private bool isSurvival = false;
 
 
     // Start is called before the first frame update
@@ -27,6 +31,7 @@ public class MovementPlayer : MonoBehaviour
         timer = 0;
         timerMove = 0f;
         timeToScore = 1f;
+        timetospawn = 0f;
         timeToMove = gm.difficulty == 1 ? 0.15f : 0.225f / gm.difficulty;
         // Randomly decide starting direction
         float movementDirection = Random.Range(0, 4);
@@ -50,7 +55,11 @@ public class MovementPlayer : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
+        
         SpawnWall();
+        if (gm.gameState == GameManager.GameState.SURVIVAL){
+            isSurvival = true;
+        }
     }
 
     // Update is called once per frame
@@ -106,7 +115,33 @@ public class MovementPlayer : MonoBehaviour
         }
         // Resize the collider between the current wall and last wall's end point
         FitWallCollider(currentWall, lastWallEndPoint, transform.position);
+
+        //Spawn coletavel
+        if (isSurvival){
+            timetospawn += Time.deltaTime;
+            if ( timetospawn > 2){
+                SpawnColetavel();
+                timetospawn = 0;
+            }
+        }
     }
+
+    // Spawn um coletavel
+    void SpawnColetavel(){
+        float xrand = Random.Range(-100f, 100f);
+        float yrand = Random.Range(-50f, 50f);
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector3(xrand,yrand,0f), 3);
+        while (colliders.Length > 0){
+            xrand = Random.Range(-100f, 100f);
+            yrand = Random.Range(-50f, 50f);
+            colliders = Physics2D.OverlapCircleAll(new Vector3(xrand,yrand,0f), 3);
+        }
+
+        GameObject objcoletavel = Instantiate(ObjetoColetavel, new Vector3(xrand,yrand,0f),Quaternion.identity);
+        instantiatedCollectibles.Add(objcoletavel);
+
+    } 
 
     // Spawn a new Lightwall
     void SpawnWall()
@@ -146,11 +181,19 @@ public class MovementPlayer : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         // Check if the collision was not between the player and the current wall
-        if (collider != currentWall)
+        if (collider.gameObject.tag == "Coletavel"){
+                gm.score += 20;
+                Destroy(collider.gameObject);
+            }
+        else if (collider != currentWall)
         {
             foreach (GameObject w in instantiatedWalls)
             {
                 Destroy(w);
+            }
+            foreach (GameObject c in instantiatedCollectibles)
+            {
+                Destroy(c);
             }
             Destroy(gameObject);
             AudioManager.PlaySFX(shootSFX);
