@@ -24,4 +24,9 @@ public class MainMenuUI : MonoBehaviour
         gm.ChangeState(GameManager.GameState.DIFFICULTY_SINGLE);
     }
 
+    public void ShowInstructions()
+    {
+        gm.ChangeState(GameManager.GameState.INSTRUCTIONS);
+    }
+
 }
