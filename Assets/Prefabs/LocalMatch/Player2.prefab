@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 3140691614530894231}
   - component: {fileID: 3140691614530894228}
   - component: {fileID: 3140691614530894229}
-  - component: {fileID: 3140691614530894234}
   m_Layer: 0
-  m_Name: LightCycle2
+  m_Name: Player2
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,22 +120,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
---- !u!114 &3140691614530894234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3140691614530894235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1392f434fa687c4ab1def716af06a32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 25
-  lightWallPrefab: {fileID: 2336243742654301017, guid: 852a018fcd8e7544ab7c4d7a0bfc1a5a,
-    type: 3}
-  upKey: 273
-  downKey: 274
-  rightKey: 275
-  leftKey: 276
