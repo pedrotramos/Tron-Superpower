@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager
 {
@@ -35,6 +36,7 @@ public class GameManager
     }
     private GameManager()
     {
+        SceneManager.LoadScene(0);
         score = 0;
         destroyedNPCs = 0;
         singleWin = false;
