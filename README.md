@@ -70,6 +70,9 @@ Com os feedback recebidos, nós fizemos uma série de melhorias no jogo:
 - Permitir que o jogador jogue utilizando as teclas WASD, mas também com as setas.
 - Impedir que o jogador ou os NPCs mudem de direção rápido demais e andem sobre um rastro já formado.
 - Evitar que os NPCs façam um movimento espiral que resulta em sua morte sem necessidade.
+- Evitar colisão frontal entre os NPCs.
+- Aumento no número de RayCasts frontais, buscando melhorar a capacidade de identificação de quinas.
+- Criação da tela de instruções.
 
 ### Teste e Feedback (22/04/21)
 

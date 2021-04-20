@@ -8,6 +8,8 @@ TagManager:
   - Undefined
   - Obstaculo
   - Coletavel
+  - Goal
+  - RayCast
   layers:
   - Default
   - TransparentFX
