@@ -36,7 +36,7 @@ public class GameManager
     }
     private GameManager()
     {
-        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
         score = 0;
         destroyedNPCs = 0;
         singleWin = false;

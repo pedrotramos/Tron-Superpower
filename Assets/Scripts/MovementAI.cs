@@ -66,9 +66,9 @@ public class MovementAI : MonoBehaviour
         posicaojogador = GameObject.FindWithTag("Player").transform.position;
         timer += Time.deltaTime;
         timerMove += Time.deltaTime;
-        RaycastHit2D hitUp = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 3f);
-        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), 4f);
-        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.left), 4f);
+        RaycastHit2D hitUp = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 3.5f);
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), Mathf.Infinity);
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.left), Mathf.Infinity);
         if (hitUp && timerMove > timeToMove)
         {
             timerMove = 0f;
@@ -101,32 +101,32 @@ public class MovementAI : MonoBehaviour
     {
         float velocity_X = GetComponent<Rigidbody2D>().velocity.x;
         float velocity_Y = GetComponent<Rigidbody2D>().velocity.y;
+        float distConst = 3.5f;
         if (hitRight && hitLeft) return;
         else if (velocity_X != 0)
         {
-            if ((hitLeft && velocity_X > 0) || (hitRight && velocity_X < 0)) // Obstacle on top
+            if ((hitLeft.distance <= distConst && velocity_X > 0) || (hitRight.distance <= distConst && velocity_X < 0)) // Obstacle on top
             {
                 Debug.Log("Desce");
                 GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 180f);
             }
-            else if ((hitRight && velocity_X > 0) || (hitLeft && velocity_X < 0)) // Obstacle below
+            else if ((hitRight.distance <= distConst && velocity_X > 0) || (hitLeft.distance <= distConst && velocity_X < 0)) // Obstacle below
             {
                 Debug.Log("Sobe");
                 GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             }
-            else if (!hitRight && !hitLeft)
+            else
             {
                 Debug.Log("Aleatório");
                 // Random turn
-                int vira = Random.Range(0, 10);
-                if (vira < 5)
+                if ((hitLeft.distance <= hitRight.distance && velocity_X > 0) || (hitRight.distance <= hitLeft.distance && velocity_X < 0))
                 {
                     GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, 180);
                 }
-                else
+                else if ((hitRight.distance < hitLeft.distance && velocity_X > 0) || (hitLeft.distance < hitRight.distance && velocity_X < 0))
                 {
                     GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -137,29 +137,28 @@ public class MovementAI : MonoBehaviour
         }
         else if (velocity_Y != 0)
         {
-            if ((hitLeft && velocity_Y > 0) || (hitRight && velocity_Y < 0))
+            if ((hitLeft.distance <= distConst && velocity_Y > 0) || (hitRight.distance <= distConst && velocity_Y < 0))
             {
                 Debug.Log("Direita");
                 GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, -90f);
             }
-            else if ((hitRight && velocity_Y > 0) || (hitLeft && velocity_Y < 0))
+            else if ((hitRight.distance <= distConst && velocity_Y > 0) || (hitLeft.distance <= distConst && velocity_Y < 0))
             {
                 Debug.Log("Esquerda");
                 GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 90f);
             }
-            else if (!hitRight && !hitLeft)
+            else
             {
                 Debug.Log("Aleatório");
                 //movimento aleatorio de virada
-                int vira = Random.Range(0, 10);
-                if (vira < 5)
+                if ((hitLeft.distance <= hitRight.distance && velocity_Y > 0) || (hitRight.distance <= hitLeft.distance && velocity_Y < 0))
                 {
                     GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, -90);
                 }
-                else
+                else if ((hitRight.distance < hitLeft.distance && velocity_Y > 0) || (hitLeft.distance < hitRight.distance && velocity_Y < 0))
                 {
                     GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, 90f);
@@ -175,26 +174,30 @@ public class MovementAI : MonoBehaviour
     {
         float velocity_X = GetComponent<Rigidbody2D>().velocity.x;
         float velocity_Y = GetComponent<Rigidbody2D>().velocity.y;
+        float distConst = 3.5f;
         if (velocity_X != 0)
         {
-            if ((hitLeft && velocity_X > 0) || (hitRight && velocity_X < 0))
+            if ((hitLeft.distance <= distConst && velocity_X > 0) || (hitRight.distance <= distConst && velocity_X < 0))
             {
+                Debug.Log("Desce (Evitar Colisão)");
                 GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 180f);
             }
-            else if ((hitRight && velocity_X > 0) || (hitLeft && velocity_X < 0))
+            else if ((hitRight.distance <= distConst && velocity_X > 0) || (hitLeft.distance <= distConst && velocity_X < 0))
             {
+                Debug.Log("Sobe (Evitar Colisão)");
                 GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             }
             else
             {
-                if (Random.Range(0, 10) < 5)
+                Debug.Log("Aleatório UD (Evitar Colisão)");
+                if ((hitLeft.distance <= hitRight.distance && velocity_X > 0) || (hitRight.distance <= hitLeft.distance && velocity_X < 0))
                 {
                     GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, 180);
                 }
-                else
+                else if ((hitRight.distance < hitLeft.distance && velocity_X > 0) || (hitLeft.distance < hitRight.distance && velocity_X < 0))
                 {
                     GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -204,104 +207,31 @@ public class MovementAI : MonoBehaviour
         }
         else if (velocity_Y != 0)
         {
-            if ((hitLeft && velocity_Y > 0) || (hitRight && velocity_Y < 0))
+            if ((hitLeft.distance <= distConst && velocity_Y > 0) || (hitRight.distance <= distConst && velocity_Y < 0))
             {
+                Debug.Log("Direita (Evitar Colisão)");
                 GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, -90f);
             }
-            else if ((hitRight && velocity_Y > 0) || (hitLeft && velocity_Y < 0))
+            else if ((hitRight.distance <= distConst && velocity_Y > 0) || (hitLeft.distance <= distConst && velocity_Y < 0))
             {
+                Debug.Log("Esquerda (Evitar Colisão)");
                 GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 90f);
             }
             else
             {
-                if (Random.Range(0, 10) < 5)
+                Debug.Log("Aleatório LR (Evitar Colisão)");
+                if ((hitLeft.distance <= hitRight.distance && velocity_Y > 0) || (hitRight.distance <= hitLeft.distance && velocity_Y < 0))
                 {
                     GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, -90);
-                    //Debug.Log("Direita aleatorio");
                 }
-                else
+                else if ((hitRight.distance < hitLeft.distance && velocity_Y > 0) || (hitLeft.distance < hitRight.distance && velocity_Y < 0))
                 {
                     GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, 90f);
-                    //Debug.Log("Esquerda aleatorio");
                 }
-            }
-            SpawnWall();
-        }
-    }
-
-    void MudarDeDirecao(RaycastHit2D hitRight, RaycastHit2D hitLeft)
-    {
-        float velocity_X = GetComponent<Rigidbody2D>().velocity.x;
-        float velocity_Y = GetComponent<Rigidbody2D>().velocity.y;
-        if (velocity_X != 0)
-        {
-            if ((hitLeft && velocity_X > 0) || (hitRight && velocity_X < 0)) // --> e pega em cima
-            {
-                GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
-                transform.rotation = Quaternion.Euler(0f, 0f, 180f);
-                //Debug.Log("Desceu");
-            }
-            else if ((hitRight && velocity_X > 0) || (hitLeft && velocity_X < 0))
-            {
-                GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
-                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                //Debug.Log("Subiu");
-            }
-            else
-            {
-                //movimento aleatorio de virada
-                int vira = Random.Range(0, 10);
-                if (vira < 5)
-                {
-                    GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
-                    transform.rotation = Quaternion.Euler(0f, 0f, 180);
-                    //Debug.Log("Desceu aleatorio");
-                }
-                else
-                {
-                    GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
-                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                    //Debug.Log("Subiu aleatorio");
-                }
-
-            }
-            SpawnWall();
-        }
-        else if (velocity_Y != 0)
-        {
-            if ((hitLeft && velocity_Y > 0) || (hitRight && velocity_Y < 0))
-            {
-                GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
-                transform.rotation = Quaternion.Euler(0f, 0f, -90f);
-                //Debug.Log("Direta");
-            }
-            else if ((hitRight && velocity_Y > 0) || (hitLeft && velocity_Y < 0))
-            {
-                GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
-                transform.rotation = Quaternion.Euler(0f, 0f, 90f);
-                //Debug.Log("Esquerda");
-            }
-            else
-            {
-                //movimento aleatorio de virada
-                int vira = Random.Range(0, 10);
-                if (vira < 5)
-                {
-                    GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
-                    transform.rotation = Quaternion.Euler(0f, 0f, -90);
-                    //Debug.Log("Direita aleatorio");
-                }
-                else
-                {
-                    GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
-                    transform.rotation = Quaternion.Euler(0f, 0f, 90f);
-                    //Debug.Log("Esquerda aleatorio");
-                }
-
             }
             SpawnWall();
         }
