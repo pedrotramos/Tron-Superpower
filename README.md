@@ -73,6 +73,7 @@ Com os feedback recebidos, nós fizemos uma série de melhorias no jogo:
 - Evitar colisão frontal entre os NPCs.
 - Aumento no número de RayCasts frontais, buscando melhorar a capacidade de identificação de quinas.
 - Criação da tela de instruções.
+- Somente destruir o rastro dos oponentes ao final da partida, com o objetivo de tornar o jogo mais desafiador.
 
 ### Teste e Feedback (22/04/21)
 

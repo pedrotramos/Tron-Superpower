@@ -9,6 +9,13 @@ public class EndSingleUI : MonoBehaviour
     private void OnEnable()
     {
         gm = GameManager.GetInstance();
+        GameObject[] walls = GameObject.FindGameObjectsWithTag("Wall");
+        foreach (GameObject w in walls)
+        {
+            // Destroy(w.GetComponent<BoxCollider2D>());
+            // Destroy(w);
+            w.SetActive(false);
+        }
         if (gm.singleWin)
         {
             message.text = "You have won and scored " + gm.score.ToString() + " points!";

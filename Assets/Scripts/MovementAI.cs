@@ -8,7 +8,7 @@ public class MovementAI : MonoBehaviour
     float movementSpeed;
     public GameObject lightWallPrefab;
     Collider2D currentWall;
-    Vector2 lastWallEndPoint; 
+    Vector2 lastWallEndPoint;
     List<GameObject> instantiatedWalls = new List<GameObject>();
     float timer;
     float timeToChangeDirection;
@@ -16,7 +16,7 @@ public class MovementAI : MonoBehaviour
     float timerMove;
     public Vector3 posicaojogador;
     public AudioClip shootSFX;
-    public Transform rcOriginL,rcOriginM,rcOriginR;
+    public Transform rcOriginL, rcOriginM, rcOriginR;
 
 
     // Start is called before the first frame update
@@ -58,10 +58,6 @@ public class MovementAI : MonoBehaviour
     {
         if (gm.gameState != GameManager.GameState.SINGLE)
         {
-            foreach (GameObject w in instantiatedWalls)
-            {
-                Destroy(w);
-            }
             Destroy(gameObject);
         }
         posicaojogador = GameObject.FindWithTag("Player").transform.position;
@@ -81,7 +77,6 @@ public class MovementAI : MonoBehaviour
         else if (timer >= timeToChangeDirection && timerMove > timeToMove)
         {
             ChangeDirection(hitRight, hitLeft);
-            //TryToCatch(hitRight, hitLeft);
             timer = 0f;
             timerMove = 0f;
             timeToChangeDirection = Random.Range(1f, 4f);
@@ -113,19 +108,16 @@ public class MovementAI : MonoBehaviour
         {
             if ((hitLeft.distance <= distConst && velocity_X > 0) || (hitRight.distance <= distConst && velocity_X < 0)) // Obstacle on top
             {
-                Debug.Log("Desce");
                 GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 180f);
             }
             else if ((hitRight.distance <= distConst && velocity_X > 0) || (hitLeft.distance <= distConst && velocity_X < 0)) // Obstacle below
             {
-                Debug.Log("Sobe");
                 GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             }
             else
             {
-                Debug.Log("Aleatório");
                 // Random turn
                 if ((hitLeft.distance <= hitRight.distance && velocity_X > 0) || (hitRight.distance <= hitLeft.distance && velocity_X < 0))
                 {
@@ -145,19 +137,16 @@ public class MovementAI : MonoBehaviour
         {
             if ((hitLeft.distance <= distConst && velocity_Y > 0) || (hitRight.distance <= distConst && velocity_Y < 0))
             {
-                Debug.Log("Direita");
                 GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, -90f);
             }
             else if ((hitRight.distance <= distConst && velocity_Y > 0) || (hitLeft.distance <= distConst && velocity_Y < 0))
             {
-                Debug.Log("Esquerda");
                 GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 90f);
             }
             else
             {
-                Debug.Log("Aleatório");
                 //movimento aleatorio de virada
                 if ((hitLeft.distance <= hitRight.distance && velocity_Y > 0) || (hitRight.distance <= hitLeft.distance && velocity_Y < 0))
                 {
@@ -185,19 +174,16 @@ public class MovementAI : MonoBehaviour
         {
             if ((hitLeft.distance <= distConst && velocity_X > 0) || (hitRight.distance <= distConst && velocity_X < 0))
             {
-                Debug.Log("Desce (Evitar Colisão)");
                 GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 180f);
             }
             else if ((hitRight.distance <= distConst && velocity_X > 0) || (hitLeft.distance <= distConst && velocity_X < 0))
             {
-                Debug.Log("Sobe (Evitar Colisão)");
                 GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             }
             else
             {
-                Debug.Log("Aleatório UD (Evitar Colisão)");
                 if ((hitLeft.distance <= hitRight.distance && velocity_X > 0) || (hitRight.distance <= hitLeft.distance && velocity_X < 0))
                 {
                     GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
@@ -215,19 +201,16 @@ public class MovementAI : MonoBehaviour
         {
             if ((hitLeft.distance <= distConst && velocity_Y > 0) || (hitRight.distance <= distConst && velocity_Y < 0))
             {
-                Debug.Log("Direita (Evitar Colisão)");
                 GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, -90f);
             }
             else if ((hitRight.distance <= distConst && velocity_Y > 0) || (hitLeft.distance <= distConst && velocity_Y < 0))
             {
-                Debug.Log("Esquerda (Evitar Colisão)");
                 GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
                 transform.rotation = Quaternion.Euler(0f, 0f, 90f);
             }
             else
             {
-                Debug.Log("Aleatório LR (Evitar Colisão)");
                 if ((hitLeft.distance <= hitRight.distance && velocity_Y > 0) || (hitRight.distance <= hitLeft.distance && velocity_Y < 0))
                 {
                     GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
@@ -255,10 +238,11 @@ public class MovementAI : MonoBehaviour
         currentWall = newWall.GetComponent<Collider2D>();
     }
 
-    void TryToCatch(RaycastHit2D hitRight, RaycastHit2D hitLeft){
+    void TryToCatch(RaycastHit2D hitRight, RaycastHit2D hitLeft)
+    {
         posicaojogador = GameObject.FindWithTag("Goal").transform.position;
 
-        float difx,dify = 0;
+        float difx, dify = 0;
         float velocity_X = GetComponent<Rigidbody2D>().velocity.x;
         float velocity_Y = GetComponent<Rigidbody2D>().velocity.y;
         difx = transform.position.x - posicaojogador.x;
@@ -266,43 +250,46 @@ public class MovementAI : MonoBehaviour
         float distConst = 3.5f;
         if (velocity_Y != 0)
         {
-            if (difx > 0 ){
+            if (difx > 0)
+            {
                 if (!(hitLeft.distance <= distConst && velocity_Y > 0) && !(hitRight.distance <= distConst && velocity_Y < 0))
                 {
                     //virar para esquerda
                     GetComponent<Rigidbody2D>().velocity = Vector2.left * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, 90f);
-                    Debug.Log("Ajuste para esquerda");
                 }
-                
-            } else if(difx < 0) {
+
+            }
+            else if (difx < 0)
+            {
                 if (!(hitRight.distance <= distConst && velocity_Y > 0) && !(hitLeft.distance <= distConst && velocity_Y < 0))
                 {
                     //virar para direita
                     GetComponent<Rigidbody2D>().velocity = Vector2.right * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, -90);
-                    Debug.Log("Ajuste para direita");
                 }
-                
+
             }
             SpawnWall();
-        } 
-        else if (velocity_X != 0){
-            if (dify < 0 ){
+        }
+        else if (velocity_X != 0)
+        {
+            if (dify < 0)
+            {
                 //virar para cima
                 if (!(hitLeft.distance <= distConst && velocity_X > 0) && !(hitRight.distance <= distConst && velocity_X < 0))
                 {
                     GetComponent<Rigidbody2D>().velocity = Vector2.up * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                    Debug.Log("Ajuste para cima");
                 }
-            } else if(dify > 0) {
+            }
+            else if (dify > 0)
+            {
                 if (!(hitRight.distance <= distConst && velocity_X > 0) && !(hitLeft.distance <= distConst && velocity_X < 0))
                 {
                     //virar para baixo
                     GetComponent<Rigidbody2D>().velocity = Vector2.down * movementSpeed;
                     transform.rotation = Quaternion.Euler(0f, 0f, 180f);
-                    Debug.Log("Ajuste para baixo");
                 }
             }
             SpawnWall();
@@ -337,10 +324,6 @@ public class MovementAI : MonoBehaviour
         // Check if the collision was not between the player and the current wall
         if (collider != currentWall)
         {
-            foreach (GameObject w in instantiatedWalls)
-            {
-                Destroy(w);
-            }
             Destroy(gameObject);
             AudioManager.PlaySFX(shootSFX);
 
