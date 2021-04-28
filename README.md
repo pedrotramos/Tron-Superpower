@@ -22,7 +22,6 @@ Trata-se de um jogo 2D, estilo pixel art. Ou seja, uma estética simples e que e
 - Efeito sonoro da explosão: https://freesound.org/people/tommccann/sounds/235968/
 - Clipe introdução: Retirado da cena final do filme - https://www.youtube.com/watch?v=qolzPKVQa10&t=94s
 
-
 ## Interface
 
 A interface principal é simples e direta, contém apenas a pontuação no canto superior direito.
@@ -39,7 +38,7 @@ No modo Single Player o jogador pode escolher o nível de dificulade (Easy, Norm
 
 Tela de Início -> Tela Single Player -> Tela de Fim de Jogo Single Player
 
-Tela de Início -> Criação / Seleção de Lobby -> Tela do Lobby -> Tela Multiplayer -> Tela Fim de Jogo Multiplayer
+Tela de Início -> Tela de Instruções
 
 Tela de Início -> Tela Survival -> Tela Fim de Jogo Survival
 
